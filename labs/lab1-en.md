@@ -1,5 +1,5 @@
 
-# Hadoop HDFS Distributed Setup on Ubuntu (1 VM to clone into 3 VMs)
+# Lab 1: Hadoop HDFS Distributed Setup on Ubuntu (1 VM to clone into 3 VMs)
 
 This lab demonstrates how to install and configure Hadoop HDFS in distributed mode on 1 Ubuntu virtual machine and then clone it to create the other VMs using VirtualBox.
 
