@@ -75,6 +75,17 @@ Hadoop requires Java, so install OpenJDK on the Master VM:
 2. Assign a **unique static IP** to each cloned VM (refer to the [Static IP Setup Guide](https://github.com/your-repo-name/hadoop-distributed-lab/blob/main/static-ip-setup.md)).
 3. Update the `/etc/hosts` file on all VMs (Master, DataNode1, DataNode2) to include the IP addresses and hostnames of each VM.
 
+```bash
+# NameNode (Master VM)
+192.168.1.100   namenode
+
+# DataNode1
+192.168.1.101   datanode1
+
+# DataNode2
+192.168.1.102   datanode2
+```
+
 ---
 
 ## Step 3: Configure Hadoop for Distributed Mode on All VMs
