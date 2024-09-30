@@ -1,5 +1,5 @@
 
-# Lab 1: Setting Up VirtualBox VMs to Use Bridged Adapter Network Mode
+# Lab 1 - Annexe A: Setting Up VirtualBox VMs to Use Bridged Adapter Network Mode
 
 This guide explains how to configure each virtual machine (VM) in VirtualBox to use the **Bridged Adapter** network mode, allowing VMs to communicate over the local network.
 

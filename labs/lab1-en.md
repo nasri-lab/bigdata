@@ -1,5 +1,5 @@
 
-# Hadoop HDFS Distributed Setup on Ubuntu (3 VMs in VirtualBox)
+# Lab 1: Hadoop HDFS Distributed Setup on Ubuntu (3 VMs in VirtualBox)
 
 This lab demonstrates how to install and configure Hadoop HDFS in distributed mode on 3 Ubuntu virtual machines using VirtualBox.
 
