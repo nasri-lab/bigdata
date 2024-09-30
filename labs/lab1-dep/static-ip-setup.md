@@ -7,7 +7,7 @@ This lab explains how to assign unique static IP addresses to each VirtualBox VM
 
 ## Prerequisites
 - **VirtualBox** with Ubuntu Server installed on each VM.
-- **Network Mode** set to **Bridged Adapter** (see [Bridged Adapter Setup](https://github.com/your-repo-name/hadoop-distributed-lab/blob/main/network-setup.md)).
+- **Network Mode** set to **Bridged Adapter** (see [Bridged Adapter Setup](https://github.com/nasri-lab/bigdata/blob/main/labs/lab1-dep/network-setup.md)).
 
 ---
 
