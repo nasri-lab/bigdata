@@ -22,7 +22,7 @@ This lab demonstrates how to install and configure Hadoop HDFS in distributed mo
 
 2. **Network Configuration**
    - Set up each VM to use the [Bridged Adapter network mode](https://github.com/nasri-lab/bigdata/blob/main/labs/lab1-dep/network-setup.md) so they can communicate over the local network.
-   - Ensure that each machine has a unique static IP.
+   - Ensure that each machine has a [unique static IP](https://github.com/nasri-lab/bigdata/blob/main/labs/lab1-dep/static-ip-setup.md).
 
 3. **Install OpenSSH on each VM**
    - After the Ubuntu installation, log in to each VM and install OpenSSH:

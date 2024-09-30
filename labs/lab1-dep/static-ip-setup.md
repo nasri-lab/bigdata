@@ -1,5 +1,5 @@
 
-# Lab: Setting Up Unique Static IP Addresses for VirtualBox VMs
+# Lab 1: Setting Up Unique Static IP Addresses for VirtualBox VMs
 
 This lab explains how to assign unique static IP addresses to each VirtualBox VM to ensure they can communicate over the network.
 
