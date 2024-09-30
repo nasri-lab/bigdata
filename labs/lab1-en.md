@@ -21,8 +21,7 @@ This lab demonstrates how to install and configure Hadoop HDFS in distributed mo
    - Repeat this process two more times to create VMs named `datanode1` and `datanode2`.
 
 2. **Network Configuration**
-   - Set up each VM to use the **Bridged Adapter** network mode so they can communicate over the local network.
-   - Set up each VM to use the [Bridged Adapter network mode](https://github.com/nasri-lab/bigdata/blob/main/labs/network-setup.md) so they can communicate over the local network.
+   - Set up each VM to use the [Bridged Adapter network mode](https://github.com/nasri-lab/bigdata/blob/main/labs/lab1-dep/network-setup.md) so they can communicate over the local network.
    - Ensure that each machine has a unique static IP.
 
 3. **Install OpenSSH on each VM**
