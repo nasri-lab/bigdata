@@ -22,6 +22,7 @@ This lab demonstrates how to install and configure Hadoop HDFS in distributed mo
 
 2. **Network Configuration**
    - Set up each VM to use the **Bridged Adapter** network mode so they can communicate over the local network.
+   - Set up each VM to use the [Bridged Adapter network mode](https://github.com/your-repo-name/hadoop-distributed-lab/blob/main/network-setup.md) so they can communicate over the local network.
    - Ensure that each machine has a unique static IP.
 
 3. **Install OpenSSH on each VM**
