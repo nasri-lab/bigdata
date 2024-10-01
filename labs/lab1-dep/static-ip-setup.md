@@ -5,14 +5,8 @@ This lab explains how to assign unique static IP addresses to each VirtualBox VM
 
 ---
 
-## Prerequisites
-- **VirtualBox** with Ubuntu Server installed on each VM.
-- **Network Mode** set to **Bridged Adapter** (see [Bridged Adapter Setup](https://github.com/nasri-lab/bigdata/blob/main/labs/lab1-dep/network-setup.md)).
-
----
-
-## Step 1: Identify the Network Interface on Each VM
-1. **Log in** to each VM.
+## Step 1: Identify the Network Interface on the VM
+1. **Log in** to the VM.
 2. Run the following command to list the network interfaces and find the active one (usually `enp0s3`):
    ```bash
    ip a
@@ -38,8 +32,8 @@ You’ll now configure the VM to have a unique static IP.
 
 2. **Modify the file to assign a static IP**:
    - Replace the content of the file with the following configuration, making sure to:
-     - Replace the IP address with a **unique IP** for each VM (e.g., `192.168.1.100` for `namenode`, `192.168.1.101` for `datanode1`, and `192.168.1.102` for `datanode2`).
-     - Keep the `gateway4` and `nameservers` consistent for all VMs (this is the gateway to your local network, typically your router’s IP).
+     - Replace the IP address with a **unique IP** (e.g., `192.168.1.100` if this address is not assigned to another VM).
+     - Keep the `gateway4` and `nameservers` consistent for this VMs (this is the gateway to your local network, typically your router’s IP).
      ```yaml
      network:
        version: 2
@@ -54,12 +48,6 @@ You’ll now configure the VM to have a unique static IP.
              addresses:
                - 8.8.8.8
      ```
-
-3. **Repeat this process** for each VM, but ensure that:
-   - The IP addresses are unique:
-     - **VM1 (NameNode)**: `192.168.1.100`
-     - **VM2 (DataNode1)**: `192.168.1.101`
-     - **VM3 (DataNode2)**: `192.168.1.102`
 
 4. **Save and exit**: Press `Ctrl + O` to save the file, and `Ctrl + X` to exit the editor.
 
@@ -79,41 +67,8 @@ You’ll now configure the VM to have a unique static IP.
 
 ---
 
-## Step 4: Verify Network Connectivity
-1. **Ping Test**: Try pinging the other VMs to ensure that they can communicate with each other.
-   - On `namenode`, ping `datanode1`:
-     ```bash
-     ping 192.168.1.101
-     ```
-   - On `datanode1`, ping `datanode2`:
-     ```bash
-     ping 192.168.1.102
-     ```
-   If the pings are successful, the VMs are correctly configured with unique static IPs and are able to communicate over the network.
-
----
-
-## Step 5: Update the `/etc/hosts` File
-To make it easier to communicate between the VMs by hostname (instead of IP address), you can update the `/etc/hosts` file on each VM.
-
-1. Open the `/etc/hosts` file:
-   ```bash
-   sudo nano /etc/hosts
-   ```
-
-2. Add the following entries, replacing with the correct IP addresses of your VMs:
-   ```
-   192.168.1.100 namenode
-   192.168.1.101 datanode1
-   192.168.1.102 datanode2
-   ```
-
-3. Save and exit the file. Now, instead of using IP addresses, you can use the hostnames (`namenode`, `datanode1`, `datanode2`) to communicate between VMs.
-
----
-
 ## Summary
-- You’ve successfully configured unique static IP addresses for each VM, ensuring that they can communicate over the local network.
+- You’ve successfully configured unique static IP addresses for the VM, ensuring that they can communicate over the local network.
 - You also verified the configuration using ping tests and updated the `/etc/hosts` file to allow communication by hostname.
 
 This completes the lab on setting up unique static IP addresses for your VirtualBox VMs.
