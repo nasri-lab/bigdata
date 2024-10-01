@@ -1,5 +1,5 @@
 
-# LAP 1 - Annexe3: Passwordless SSH Setup for Hadoop Cluster
+# LAP 1 - Annexe C: Passwordless SSH Setup for Hadoop Cluster
 
 This guide explains how to configure **passwordless SSH** between the nodes in your Hadoop cluster. Hadoop uses SSH to start and stop services across the cluster, so passwordless SSH is essential for the NameNode to communicate with the DataNodes and the Secondary NameNode.
 
@@ -25,9 +25,8 @@ This guide explains how to configure **passwordless SSH** between the nodes in y
      ```bash
      ssh-copy-id -i ~/.ssh/id_rsa.pub hdfs@datanode1
      ssh-copy-id -i ~/.ssh/id_rsa.pub hdfs@datanode2
+     ssh-copy-id -i ~/.ssh/id_rsa.pub hdfs@hdfsnode
      ```
-
-   **Note**: Replace `datanode1`, `datanode2`, and `secondarynamenode` with the actual hostnames or IP addresses of the nodes.
 
 3. **Test passwordless SSH**:
    - Test if passwordless SSH works by connecting from the NameNode (Master) to itself and each DataNode:
@@ -35,6 +34,7 @@ This guide explains how to configure **passwordless SSH** between the nodes in y
      ssh hdfs@master
      ssh hdfs@datanode1
      ssh hdfs@datanode2
+     ssh hdfs@hdfsnode
      ```
    - If the password prompt no longer appears, passwordless SSH is working.
 

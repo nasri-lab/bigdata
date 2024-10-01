@@ -81,3 +81,6 @@
 - C. Use the command `hdfs dfs -stat %r /path/to/file`.
 - D. Use the command `hdfs dfsadmin -report`.
 
+
+
+[Check the Answers](./hadoop-hdfs-quiz-answers.md)

@@ -25,21 +25,66 @@ The `hdfs dfsadmin -report` command provides a comprehensive overview of the hea
 
    Example output:
    ```text
-   Configured Capacity: 100 GB
-   DFS Used: 20 GB
-   Non DFS Used: 5 GB
-   DFS Remaining: 75 GB
+   Configured Capacity: 17220509696 (16.04 GB)
+   Present Capacity: 3490349056 (3.25 GB)
+   DFS Remaining: 3490283520 (3.25 GB)
+   DFS Used: 65536 (64 KB)
+   DFS Used%: 0.00%
+   Replicated Blocks:
+           Under replicated blocks: 0
+           Blocks with corrupt replicas: 0
+           Missing blocks: 0
+           Missing blocks (with replication factor 1): 0
+           Low redundancy blocks with highest priority to recover: 0
+           Pending deletion blocks: 0
+   Erasure Coded Block Groups:
+           Low redundancy block groups: 0
+           Block groups with corrupt internal blocks: 0
+           Missing block groups: 0
+           Low redundancy blocks with highest priority to recover: 0
+           Pending deletion blocks: 0
+
+   -------------------------------------------------
    Live datanodes (2):
 
-   Name: 192.168.0.231:50010 (datanode1)
-   Hostname: datanode1
+   Name: 192.168.0.231:9866 (datanode1)
+   Hostname: hdfsnode
    Decommission Status : Normal
-   Configured Capacity: 50 GB
-   DFS Used: 10 GB
-   DFS Remaining: 40 GB
-   ...
+   Configured Capacity: 8610254848 (8.02 GB)
+   DFS Used: 32768 (32 KB)
+   Non DFS Used: 6403076096 (5.96 GB)
+   DFS Remaining: 1747660800 (1.63 GB)
+   DFS Used%: 0.00%
+   DFS Remaining%: 20.30%
+   Configured Cache Capacity: 0 (0 B)
+   Cache Used: 0 (0 B)
+   Cache Remaining: 0 (0 B)
+   Cache Used%: 100.00%
+   Cache Remaining%: 0.00%
+   Xceivers: 0
+   Last contact: Tue Oct 01 11:13:53 UTC 2024
+   Last Block Report: Tue Oct 01 10:54:35 UTC 2024
+   Num of Blocks: 0
 
-   Dead datanodes (0):
+
+   Name: 192.168.0.232:9866 (datanode2)
+   Hostname: hdfsnode
+   Decommission Status : Normal
+   Configured Capacity: 8610254848 (8.02 GB)
+   DFS Used: 32768 (32 KB)
+   Non DFS Used: 6408114176 (5.97 GB)
+   DFS Remaining: 1742622720 (1.62 GB)
+   DFS Used%: 0.00%
+   DFS Remaining%: 20.24%
+   Configured Cache Capacity: 0 (0 B)
+   Cache Used: 0 (0 B)
+   Cache Remaining: 0 (0 B)
+   Cache Used%: 100.00%
+   Cache Remaining%: 0.00%
+   Xceivers: 0
+   Last contact: Tue Oct 01 11:13:51 UTC 2024
+   Last Block Report: Tue Oct 01 10:54:11 UTC 2024
+   Num of Blocks: 0
    ```
 
 3. **Check for any dead DataNodes**:
