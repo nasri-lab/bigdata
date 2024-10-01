@@ -50,8 +50,8 @@ In order to connect to the VM via SSH clients (like **PuTTY**), you need to inst
   ```
 
 ### 1.3 Configure Network Settings (Static IP and Bridged Adapter)
-1. **Set up a static IP** for this VM (see the [Static IP Setup Guide](./static-ip-setup.md)).
-2. Ensure that the network is set to **Bridged Adapter** mode (see [Bridged Adapter Setup](./network-setup.md)).
+1. **Set up a static IP** for this VM (see the [Static IP Setup Guide](./lab1-dep/static-ip-setup.md)).
+2. Ensure that the network is set to **Bridged Adapter** mode (see [Bridged Adapter Setup](./lab1-dep/network-setup.md)).
 3. Download [**PuTTY**](https://www.putty.org/) and connect to your VM via SSH.
 
 ### 1.4 Install Hadoop on the VM
@@ -84,15 +84,15 @@ Then download Hadoop,
    export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
    ```
 
-For some cases, the JAVA_HOME variable is not picked by Hadoop, so add it to Hadoop envirement file:
+  For some cases, the JAVA_HOME variable is not picked by Hadoop, so add it to Hadoop envirement file:
 
   ```bash
-   sudo nano /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+  sudo nano /usr/local/hadoop/etc/hadoop/hadoop-env.sh
    ```
    And then modify the JAVA_HOME variable:
 
    ```bash
-  export JAVA_HOME= 
+  export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
   ```
 
 2. Apply the changes:
@@ -121,7 +121,7 @@ For some cases, the JAVA_HOME variable is not picked by Hadoop, so add it to Had
 
 ### 2.2 Configure Network Settings for DataNodes
 1. After cloning, power on each new VM (**datanode1** and **datanode2**).
-2. Assign a **unique static IP** to each cloned VM (refer to the [Static IP Setup Guide](./static-ip-setup.md)).
+2. Assign a **unique static IP** to each cloned VM (refer to the [Static IP Setup Guide](./lab1-dep/static-ip-setup.md)).
 3. To make it easier to communicate between the VMs by hostname (instead of IP address), you can update the `/etc/hosts` file on each VM. Update the `/etc/hosts` file on all VMs (Master, DataNode1, DataNode2) to include the IP addresses and hostnames of each VM.
 
   ```bash
@@ -209,7 +209,7 @@ On the **master** VM (Only on the master), format the NameNode:
    start-dfs.sh
    ```
 
-   In case you encounter problems of kind **Permission denied** refer to [Passwordless SSH Setup for Hadoop Cluster](./passwordless-ssh-setup.md)
+   In case you encounter problems of kind **Permission denied** refer to [Passwordless SSH Setup for Hadoop Cluster](./lab1-dep/passwordless-ssh-setup.md)
 
 2. **Start YARN**:
    ```bash
@@ -224,7 +224,7 @@ Once you've completed the Hadoop and HDFS setup, it's essential to verify that e
 
 You can follow the guide in the next section to run health checks on your HDFS setup and ensure that all components are working as expected:
 
-[Check HDFS Health: HDFS Report and Validation](./hdfs-check-report.md)
+[Check HDFS Health: HDFS Report and Validation](./lab1-dep/hdfs-check-report.md)
 
 This guide will walk you through the process of verifying DataNode connectivity, block distribution, file operations, and the overall health of your Hadoop cluster.
 
@@ -236,8 +236,8 @@ After completing the setup and checking the health of your HDFS, it's time to as
 
 You can take this quiz to reinforce the key concepts you’ve learned:
 
-- [Take the Quiz](./hadoop-hdfs-quiz-questions.md)
-- [Check Quiz Answers](./hadoop-hdfs-quiz-answers.md)
+- [Take the Quiz](./lab1-dep/hadoop-hdfs-quiz-questions.md)
+- [Check Quiz Answers](./lab1-dep/hadoop-hdfs-quiz-answers.md)
 
 This will help you evaluate your comprehension of the key topics covered in this lab.
 

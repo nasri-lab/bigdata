@@ -1,5 +1,5 @@
 
-# Quiz Answers: Assess Your Understanding of Hadoop and HDFS Setup
+# Lab1 - Quiz Answers: Assess Your Understanding of Hadoop and HDFS Setup
 
 ---
 
