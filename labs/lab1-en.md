@@ -1,7 +1,7 @@
 
-# Lab 1: Hadoop HDFS Distributed Setup on Ubuntu (1 VM to clone into 3 VMs)
+# Lab 1: Hadoop HDFS Distributed Setup on Ubuntu (3 VMs)
 
-This lab demonstrates how to install and configure Hadoop HDFS in distributed mode on 1 Ubuntu virtual machine and then clone it to create the other VMs using VirtualBox.
+This lab demonstrates how to install and configure Hadoop HDFS in distributed mode on 3 Ubuntu virtual machines using VirtualBox.
 
 ## Prerequisites:
 - **VirtualBox** installed on your machine.
@@ -10,53 +10,101 @@ This lab demonstrates how to install and configure Hadoop HDFS in distributed mo
 
 ---
 
-## Step 1: Create and Configure 1 Master Virtual Machine
+## Step 1: Create and Configure One Master Virtual Machine (to be cloned later)
+
+In this step, you will first create a **Master VM**. Once this VM is fully configured, we will **clone it to create 2 additional VMs** and customize them as needed for the Hadoop cluster.
 
 ### 1.1 Create the First VM (Master VM)
 1. Open VirtualBox and create a new VM called `master`.
 2. Assign **2 GB of RAM** and **2 CPU cores**.
 3. Attach the **Ubuntu Server ISO** to the VM and start the installation.
-4. Follow the Ubuntu installation process and install the minimal system (without GUI).
+4. Follow the Ubuntu installation process and install the minimal system.
 5. Set up a username and password for SSH access.
+6. Install the OS updates:
+  ```bash
+   sudo apt update
+   sudo apt upgrade
+   ```
 
-### 1.2 Install Java on the Master VM
+### 1.2: Install OpenSSH Server on the VM and allow remote access
+
+In order to connect to the VM via SSH clients (like **PuTTY**), you need to install and activate SSH on the VM, we will install **OpenSSH server**.
+
+1. **Log in** to the VM.
+2. Install the **OpenSSH server**:
+   ```bash
+   sudo apt install openssh-server
+   ```
+3. Check if the service is running:
+   ```bash
+   sudo systemctl status ssh
+   ```
+4. In case it is not running, start it:
+  ```bash
+   sudo systemctl start ssh
+   ```
+
+5. Enable the SSH service to start on boot:
+  ```bash
+  sudo systemctl enable ssh
+  ```
+
+### 1.3 Configure Network Settings (Static IP and Bridged Adapter)
+1. **Set up a static IP** for this VM (see the [Static IP Setup Guide](./static-ip-setup.md)).
+2. Ensure that the network is set to **Bridged Adapter** mode (see [Bridged Adapter Setup](./network-setup.md)).
+3. Download [**PuTTY**](https://www.putty.org/) and connect to your VM via SSH.
+
+### 1.4 Install Hadoop on the VM
 Hadoop requires Java, so install OpenJDK on the Master VM:
    ```bash
-   sudo apt update
    sudo apt install openjdk-8-jdk
    ```
 
-### 1.3 Download and Install Hadoop on the Master VM
-1. Download Hadoop on the Master VM:
+Then download Hadoop, 
    ```bash
-   wget https://downloads.apache.org/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.tar.gz
+   wget https://downloads.apache.org/hadoop/common/hadoop-3.4.0/hadoop-3.4.0.tar.gz
    ```
-2. Extract Hadoop and move it to `/usr/local/hadoop`:
+   Extract Hadoop and move it to `/usr/local/hadoop`:
+   
    ```bash
-   tar -xvzf hadoop-3.3.0.tar.gz
-   sudo mv hadoop-3.3.0 /usr/local/hadoop
+   tar -xvzf hadoop-3.4.0.tar.gz
+   sudo mv hadoop-3.4.0 /usr/local/hadoop
    ```
 
-### 1.4 Configure Environment Variables on the Master VM
+### 1.5 Configure Environment Variables on the Master VM
 1. On the Master VM, edit the `~/.bashrc` file to add the Hadoop environment variables:
    ```bash
    sudo nano ~/.bashrc
    ```
-   Add the following lines at the end of the file:
+   Add the following lines at the end of the file (Pay attention, **DON'T REPLACE** the content):
    ```bash
    export HADOOP_HOME=/usr/local/hadoop
    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
    export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
    export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
    ```
+
+For some cases, the JAVA_HOME variable is not picked by Hadoop, so add it to Hadoop envirement file:
+
+  ```bash
+   sudo nano /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+   ```
+   And then modify the JAVA_HOME variable:
+
+   ```bash
+  export JAVA_HOME= 
+  ```
+
 2. Apply the changes:
    ```bash
    source ~/.bashrc
    ```
 
-### 1.5 Configure Network Settings (Static IP and Bridged Adapter)
-1. **Set up a static IP** for this VM (see the [Static IP Setup Guide](https://github.com/your-repo-name/hadoop-distributed-lab/blob/main/static-ip-setup.md)).
-2. Ensure that the network is set to **Bridged Adapter** mode (see [Bridged Adapter Setup](https://github.com/your-repo-name/hadoop-distributed-lab/blob/main/network-setup.md)).
+3. Ensure the envirenement is well configured:
+  ```bash
+  echo $HADOOP_HOME
+  ```
+  This command line should print **/usr/local/hadoop**
 
 ---
 
@@ -70,22 +118,28 @@ Hadoop requires Java, so install OpenJDK on the Master VM:
    - Name the second clone **datanode2**.
 4. When cloning, choose the option **Reinitialize the MAC address of all network cards** to avoid network conflicts.
 
+
 ### 2.2 Configure Network Settings for DataNodes
 1. After cloning, power on each new VM (**datanode1** and **datanode2**).
-2. Assign a **unique static IP** to each cloned VM (refer to the [Static IP Setup Guide](https://github.com/your-repo-name/hadoop-distributed-lab/blob/main/static-ip-setup.md)).
-3. Update the `/etc/hosts` file on all VMs (Master, DataNode1, DataNode2) to include the IP addresses and hostnames of each VM.
+2. Assign a **unique static IP** to each cloned VM (refer to the [Static IP Setup Guide](./static-ip-setup.md)).
+3. To make it easier to communicate between the VMs by hostname (instead of IP address), you can update the `/etc/hosts` file on each VM. Update the `/etc/hosts` file on all VMs (Master, DataNode1, DataNode2) to include the IP addresses and hostnames of each VM.
 
-```bash
-# NameNode (Master VM)
-192.168.1.100   namenode
+  ```bash
+   sudo nano /etc/hosts
+   ```
 
-# DataNode1
-192.168.1.101   datanode1
+   And put the following content
 
-# DataNode2
-192.168.1.102   datanode2
-```
+  ```bash
+  # NameNode (Master VM)
+  192.168.0.230   master
 
+  # DataNode1
+  192.168.0.231   datanode1
+
+  # DataNode2
+  192.168.0.232   datanode2
+  ```
 ---
 
 ## Step 3: Configure Hadoop for Distributed Mode on All VMs
@@ -144,7 +198,7 @@ Hadoop requires Java, so install OpenJDK on the Master VM:
    ```
 
 ### 3.4 Format the NameNode
-On the **master** VM, format the NameNode:
+On the **master** VM (Only on the master), format the NameNode:
    ```bash
    hdfs namenode -format
    ```
@@ -154,6 +208,9 @@ On the **master** VM, format the NameNode:
    ```bash
    start-dfs.sh
    ```
+
+   In case you encounter problems of kind **Permission denied** refer to [Passwordless SSH Setup for Hadoop Cluster](./passwordless-ssh-setup.md)
+
 2. **Start YARN**:
    ```bash
    start-yarn.sh
@@ -161,13 +218,28 @@ On the **master** VM, format the NameNode:
 
 ---
 
-## Step 4: Verify the Setup
-1. On the **master VM**, open the HDFS Web UI to verify that all nodes are running:
-   ```
-   http://<master-ip>:9870
-   ```
+## Step 4:Final Step: Verify HDFS Health
 
-2. On the **master VM**, verify the DataNodes by checking the web interface for live DataNodes.
+Once you've completed the Hadoop and HDFS setup, it's essential to verify that everything is functioning correctly.
+
+You can follow the guide in the next section to run health checks on your HDFS setup and ensure that all components are working as expected:
+
+[Check HDFS Health: HDFS Report and Validation](./hdfs-check-report.md)
+
+This guide will walk you through the process of verifying DataNode connectivity, block distribution, file operations, and the overall health of your Hadoop cluster.
+
+---
+
+## Final Step: Test Your Knowledge
+
+After completing the setup and checking the health of your HDFS, it's time to assess your understanding of Hadoop and HDFS.
+
+You can take this quiz to reinforce the key concepts you’ve learned:
+
+- [Take the Quiz](./hadoop-hdfs-quiz-questions.md)
+- [Check Quiz Answers](./hadoop-hdfs-quiz-answers.md)
+
+This will help you evaluate your comprehension of the key topics covered in this lab.
 
 ---
 

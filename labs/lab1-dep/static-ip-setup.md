@@ -32,7 +32,7 @@ You’ll now configure the VM to have a unique static IP.
 
 2. **Modify the file to assign a static IP**:
    - Replace the content of the file with the following configuration, making sure to:
-     - Replace the IP address with a **unique IP** (e.g., `192.168.1.100` if this address is not assigned to another VM).
+     - Replace the IP address with a **unique IP** (e.g., `192.168.0.230` if this address is not assigned to another VM).
      - Keep the `gateway4` and `nameservers` consistent for this VMs (this is the gateway to your local network, typically your router’s IP).
      ```yaml
      network:
@@ -42,8 +42,8 @@ You’ll now configure the VM to have a unique static IP.
          enp0s3:
            dhcp4: no
            addresses:
-             - 192.168.1.100/24   # Unique static IP for this VM
-           gateway4: 192.168.1.1
+             - 192.168.0.230/24   # Unique static IP for this VM
+           gateway4: 192.168.0.1
            nameservers:
              addresses:
                - 8.8.8.8
@@ -63,12 +63,11 @@ You’ll now configure the VM to have a unique static IP.
    ```bash
    ip a
    ```
-   You should now see the static IP address you assigned under the network interface (e.g., `192.168.1.100` for the NameNode).
+   You should now see the static IP address you assigned under the network interface (e.g., `192.168.0.230` for the NameNode).
 
 ---
 
 ## Summary
 - You’ve successfully configured unique static IP addresses for the VM, ensuring that they can communicate over the local network.
-- You also verified the configuration using ping tests and updated the `/etc/hosts` file to allow communication by hostname.
 
 This completes the lab on setting up unique static IP addresses for your VirtualBox VMs.
