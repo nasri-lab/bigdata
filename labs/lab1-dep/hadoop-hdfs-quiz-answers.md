@@ -3,10 +3,6 @@
 
 ---
 
-#  Lab1 - Quiz: Assess Your Understanding of Hadoop and HDFS Setup
-
----
-
 ### **Question 1: What is the purpose of formatting the NameNode?**
 - A. To delete all the data from the DataNodes.
 - B. To initialize the file system metadata and prepare the NameNode for managing HDFS.
