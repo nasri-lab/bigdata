@@ -9,6 +9,10 @@
 - C. To start the HDFS services.
 - D. To connect the NameNode to the DataNodes.
 
+<details>
+  <summary>Show Answer</summary>
+  **Answer:** B
+</details>
 ---
 
 ### **Question 2: Which file do you need to edit to specify the directory for storing HDFS data on a DataNode?**
